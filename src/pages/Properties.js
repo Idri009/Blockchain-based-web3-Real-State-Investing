@@ -12,25 +12,66 @@ import CountDown from "../components/functions/CountDown";
 // import framer motion
 import { motion } from "framer-motion";
 import AnimationTitles from "../components/functions/AnimationTitles";
+import { useLikes } from "../contexts/LikesContext";
+import { useEffect } from "react";
 
 function Properties() {
+    const { toggleLike, isLiked, getLikesCount, initializePropertyLikes } = useLikes();
+    
+    // Initialize properties with some demo likes
+    useEffect(() => {
+        const properties = [
+            'cottage-forest-1',
+            'freshness-property',
+            'wish-house-property',
+            'spruce-property',
+            'residence-rybna',
+            'blue-sky-property'
+        ];
+        
+        properties.forEach((propertyId, index) => {
+            initializePropertyLikes(propertyId, Math.floor(Math.random() * 20) + 5);
+        });
+    }, [initializePropertyLikes]);
+
     // Active on select a tab
     function active(e) {
         let act = document.querySelectorAll(".active");
-        act[0].classList.remove("active");
+        if (act.length > 0) {
+            act[0].classList.remove("active");
+        }
         e.target.classList.add("active");
     }
 
-    // Like button of properties
-    function like(e) {
-        return e.target.classList.value === "fa-regular fa-heart like"
-            ? (e.target.classList.value = "fa-solid fa-heart like text-danger")
-            : (e.target.classList.value = "fa-regular fa-heart like");
-    }
+    // Like button of properties - updated with context
+    const handleLike = async (propertyId, e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        try {
+            const newLikedState = await toggleLike(propertyId);
+            
+            // Update the icon based on the new state
+            if (newLikedState) {
+                e.target.className = "fa-solid fa-heart like text-danger";
+            } else {
+                e.target.className = "fa-regular fa-heart like";
+            }
+        } catch (error) {
+            console.error('Error toggling like:', error);
+        }
+    };
+
+    // Get heart icon class based on liked state
+    const getHeartClass = (propertyId) => {
+        return isLiked(propertyId) 
+            ? "fa-solid fa-heart like text-danger" 
+            : "fa-regular fa-heart like";
+    };
 
     return (
         // Start properties
-        <div className="properties">
+        <div id="marketplace" className="properties">
             <Container>
                 <AnimationTitles
                     className="title mx-auto"
@@ -158,8 +199,8 @@ function Properties() {
                                             src={require("../images/properties/picture-of-a-wooden-building-in-the-forest.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('cottage-forest-1')}
+                                            onClick={(e) => handleLike('cottage-forest-1', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -196,8 +237,8 @@ function Properties() {
                                             src={require("../images/properties/pexels-stan-krotov-12737424 1.webp")}
                                         />
                                         <i
-                                            className="fa-solid fa-heart like text-danger"
-                                            onClick={like}
+                                            className={getHeartClass('freshness-property')}
+                                            onClick={(e) => handleLike('freshness-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -236,8 +277,8 @@ function Properties() {
                                             src={require("../images/properties/pexels-rachel-claire-8112843 1.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('wish-house-property')}
+                                            onClick={(e) => handleLike('wish-house-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -276,8 +317,8 @@ function Properties() {
                                             src={require("../images/properties/david-kovalenko-9-qFzV9a2Zc-unsplash.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('spruce-property')}
+                                            onClick={(e) => handleLike('spruce-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -314,8 +355,8 @@ function Properties() {
                                             src={require("../images/properties/house_big-1.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('residence-rybna')}
+                                            onClick={(e) => handleLike('residence-rybna', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -354,8 +395,8 @@ function Properties() {
                                             src={require("../images/properties/house_big.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('blue-sky-property')}
+                                            onClick={(e) => handleLike('blue-sky-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -394,8 +435,8 @@ function Properties() {
                                             src={require("../images/properties/picture-of-a-wooden-building-in-the-forest.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('cottage-forest-1')}
+                                            onClick={(e) => handleLike('cottage-forest-1', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -432,8 +473,8 @@ function Properties() {
                                             src={require("../images/properties/pexels-stan-krotov-12737424 1.webp")}
                                         />
                                         <i
-                                            className="fa-solid fa-heart like text-danger"
-                                            onClick={like}
+                                            className={getHeartClass('freshness-property')}
+                                            onClick={(e) => handleLike('freshness-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -472,8 +513,8 @@ function Properties() {
                                             src={require("../images/properties/pexels-rachel-claire-8112843 1.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('wish-house-property')}
+                                            onClick={(e) => handleLike('wish-house-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -512,8 +553,8 @@ function Properties() {
                                             src={require("../images/properties/david-kovalenko-9-qFzV9a2Zc-unsplash.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('spruce-property')}
+                                            onClick={(e) => handleLike('spruce-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -550,8 +591,8 @@ function Properties() {
                                             src={require("../images/properties/house_big-1.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('residence-rybna')}
+                                            onClick={(e) => handleLike('residence-rybna', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">
@@ -590,8 +631,8 @@ function Properties() {
                                             src={require("../images/properties/house_big.webp")}
                                         />
                                         <i
-                                            className="fa-regular fa-heart like"
-                                            onClick={like}
+                                            className={getHeartClass('blue-sky-property')}
+                                            onClick={(e) => handleLike('blue-sky-property', e)}
                                         ></i>
                                     </div>
                                     <h5 className="mt-2 text-white fw-normal">

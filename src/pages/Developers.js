@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 function Developers() {
     return (
-        <div className="developers">
+        <div id="developers" className="developers">
             <div className="container-fluid">
                 <AnimationTitles
                     title="Our the best developers"

@@ -12,8 +12,19 @@ function Loading() {
             : (e.target.classList.value = "fa-regular fa-heart like");
     }
 
+    // Explore button function - scroll to marketplace
+    const exploreProperties = () => {
+        const element = document.getElementById('marketplace');
+        if (element) {
+            element.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    };
+
     return (
-        <div className="loading position-relative">
+        <div id="home" className="loading position-relative">
             <Container className="d-flex justify-content-between align-items-center gap-md-5 flex-column flex-md-row mt-3 mt-xl-4 overflow-hidden">
                 <motion.div
                     initial={{ x: -400 }}
@@ -25,7 +36,10 @@ function Loading() {
                         Our real estate is virtual property you can purchase on
                         a metaverse platform
                     </p>
-                    <Button className="m-0 my-3 px-5 py-2 fs-5 fw-bold">
+                    <Button 
+                        className="m-0 my-3 px-5 py-2 fs-5 fw-bold"
+                        onClick={exploreProperties}
+                    >
                         Explore
                     </Button>
                     <div

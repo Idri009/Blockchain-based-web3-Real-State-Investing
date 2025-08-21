@@ -43,9 +43,9 @@ function Footer() {
                                 Socials
                             </h6>
                             <ul className="p-0">
-                                <li>Twitter</li>
-                                <li>Instagram</li>
-                                <li>Facebook</li>
+                                <li><a href="https://x.com/iabhays_" target="_blank" rel="noopener noreferrer" className="text-decoration-none gray-100">Twitter</a></li>
+                                <li><a href="https://www.instagram.com/iabhays/" target="_blank" rel="noopener noreferrer" className="text-decoration-none gray-100">Instagram</a></li>
+                                <li><a href="https://www.linkedin.com/in/abhijeetabhay/" target="_blank" rel="noopener noreferrer" className="text-decoration-none gray-100">LinkedIn</a></li>
                             </ul>
                         </div>
                     </motion.div>

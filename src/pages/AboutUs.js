@@ -3,8 +3,13 @@ import { motion } from "framer-motion";
 import AnimationTitles from "../components/functions/AnimationTitles";
 
 function AboutUs() {
+  const handleReadMore = () => {
+    alert('Read More functionality - This would typically open a detailed article or navigate to a dedicated page!');
+    // You could implement navigation to a detailed about page here
+  };
+
   return (
-    <div className="about">
+    <div id="about" className="about">
       <Container className="d-flex justify-content-between flex-wrap flex-md-nowrap">
         <motion.div
           initial={{ x: -200 }}
@@ -20,7 +25,7 @@ function AboutUs() {
             technology and modify their legal frameworks to accommodate it fast
             enough.
           </p>
-          <Button variant="primary ms-0">Read More</Button>
+          <Button variant="primary ms-0" onClick={handleReadMore}>Read More</Button>
         </motion.div>
         <motion.div
           initial={{ x: 200 }}
